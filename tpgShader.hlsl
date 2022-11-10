@@ -15,6 +15,8 @@ const static float3 xyY6 = {0.1463, 0.0525, 5.8715 / 10000};
 //const static float3 rgb2 = {0, 0.1, 0};
 
 //PQ constants
+const static float m1 = 2610.0 / 16384;
+const static float m2 = 2523.0 / 32;
 const static float m1inv = 16384 / 2610.0;
 const static float m2inv = 32 / 2523.0;
 const static float c1 = 3424 / 4096.0;
@@ -60,8 +62,6 @@ float3 pq_to_lin(float3 pq) {
 
 // Convert linear RGB to PQ
 float3 lin_to_pq(float3 lin) {
-  float m1 = 1 / m1inv;
-  float m2 = 1 / m2inv;
   float3 y = lin; 
   float3 p = (c1 + c2 * pow(y, m1)) / (1 + c3 * pow(y, m1));
   return pow(p, m2);
@@ -132,6 +132,6 @@ float4 main(float2 tex : TEXCOORD0) : COLOR {
 	if ((tex.x >= 0.5) && (tex.y >= 0.66667)) return float4(rgb6.r, rgb6.g, rgb6.b, 1);
 	return float4(rgb4.r, rgb4.g, rgb4.b, 1);
 
-	if (tex.x < 0.5) return float4(rgb1.r, rgb1.g, rgb1.b, 1);
-	return float4(rgb2.r, rgb2.g, rgb2.b, 1);
+	//if (tex.x < 0.5) return float4(rgb1.r, rgb1.g, rgb1.b, 1);
+	//return float4(rgb2.r, rgb2.g, rgb2.b, 1);
 }
